@@ -27,7 +27,7 @@ jobs:
         env:
           AUTH_JSON: ${{ secrets.AUTH_JSON }}
         run: |
-          echo "$AUTH_JSON" | tr -d '\r' > $GITHUB_WORKSPACE/device_auths.json
+          echo "$AUTH_JSON" | tr -d '\r' > $GITHUB_WORKSPACE/data/device_auths.json
           sed -i 's/true/false/g' data/config.json
           npm i 
           npm start
