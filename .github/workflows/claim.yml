@@ -18,7 +18,6 @@ jobs:
         with:
           repository: "Revadike/epicgames-freebies-claimer"
           persist-credentials: false
-      - run: git checkout 111a32e409544cb71165dfb15362286427354eb5
       - name: Use Node.js 14.x 
         uses: actions/setup-node@v1 
         with:
@@ -28,7 +27,8 @@ jobs:
         env:
           AUTH_JSON: ${{ secrets.AUTH_JSON }}
         run: |
-          echo "$AUTH_JSON" | tr -d '\r' > $GITHUB_WORKSPACE/device_auths.json
-          sed -i 's/true/false/g' config.json
-          npm i 
+          cd $GITHUB_WORKSPACE
+          echo $AUTH_JSON > data/device_auths.json
+          sed -i 's/"loop": true/"loop": false/g' data/config.json
+          npm install
           npm start
